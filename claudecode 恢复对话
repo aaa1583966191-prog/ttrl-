@@ -1,0 +1,42 @@
+  🔄 恢复对话的方法
+
+  方法一：自动恢复（推荐）
+
+  1. 重新启动机器后，在相同的工作目录下启动 Claude Code：
+  cd /root/autodl-tmp
+  claude
+  2. Claude Code 会自动加载之前的对话历史，你可以继续之前的工作
+
+  方法二：查看历史记录
+
+  如果想查看之前的对话内容：
+  # 查看对话历史（JSON 格式）
+  cat /root/.claude/history.jsonl | tail -20
+
+  # 或者用 Python 格式化查看
+  python3 -c "import json; [print(json.dumps(json.loads(line), indent=2, ensure_ascii=False)) for line in open('/root/.claude/history.jsonl')]" | tail -50
+
+  方法三：查看 Todo 列表
+
+  Todo 列表会持久化保存：
+  # 查看所有 todo 文件
+  ls -lh /root/.claude/todos/
+
+  # 查看具体的 todo 内容
+  cat /root/.claude/todos/*.json
+
+  💾 保存的内容包括
+
+  - ✅ 所有对话历史（/root/.claude/history.jsonl）
+  - ✅ Todo 任务列表（/root/.claude/todos/）
+  - ✅ 工作目录信息
+  - ✅ 已完成和待完成的任务状态
+
+  📋 当前任务快速参考
+
+  为了方便你关机后快速回忆，这是我们的进度：
+  - 数据集：已下载 AIME 2024（30样本）→ /root/autodl-tmp/TTRL/verl/data/AIME-TTT/
+  - 模型：已下载 Qwen2.5-7B-Instruct → /root/autodl-tmp/modelscope/models/Qwen/Qwen2.5-7B-Instruct/
+  - 下一步：分配 A100 40GB GPU → 修改配置 → 运行训练
+
+  建议：关机前记下这个工作目录路径 /root/autodl-tmp，重启后直接 cd 到这里启动 Claude Code 即可继续！
